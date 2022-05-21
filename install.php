@@ -58,10 +58,9 @@
 		$strSQLTaulaContinent = 
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `continents` (
-				`continent_id`		TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				`continent_code`	CHAR(2) NOT NULL UNIQUE KEY,
 				`name`				VARCHAR(20)	NOT NULL UNIQUE KEY,
-				CONSTRAINT PK_continent_id PRIMARY KEY (continent_id)
+				CONSTRAINT PK_continent_code PRIMARY KEY (continent_code)
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
@@ -69,12 +68,11 @@
 		$strSQLTaulaCountry = 
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `countries` (
-				`country_id`		SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				`country_code`		CHAR(2) 	NOT NULL UNIQUE KEY,
 				`name`				VARCHAR(90)	NOT NULL,
 				`fullName`			VARCHAR(90)	NOT NULL,
 				`continent_code`	CHAR(2) NOT NULL,
-				CONSTRAINT PK_country_id PRIMARY KEY (country_id),
+				CONSTRAINT PK_country_code PRIMARY KEY (country_code),
 				CONSTRAINT FK_continent_code FOREIGN KEY (continent_code) REFERENCES continents(continent_code) ON DELETE CASCADE ON UPDATE CASCADE
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
@@ -86,7 +84,7 @@
 				`disease_type_code`	VARCHAR(3)	NOT NULL UNIQUE KEY,
 				`name`				VARCHAR(50) NOT NULL,
 				`description`		TEXT NOT NULL,
-				CONSTRAINT PK_disease_type_id PRIMARY KEY (disease_type_id)
+				CONSTRAINT PK_disease_type_code PRIMARY KEY (disease_type_code)
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
@@ -97,8 +95,8 @@
 				`disease_id`		INT	UNSIGNED	NOT NULL AUTO_INCREMENT,
 				`sex`				BOOLEAN			NOT NULL,
 				`age`				TINYINT			UNSIGNED NOT NULL,
-				`country_code` 		SMALLINT		UNSIGNED NOT NULL,
-				`disease_type_code`	TINYINT			UNSIGNED NOT NULL,
+				`country_code` 		CHAR(2)			NOT NULL,
+				`disease_type_code`	CHAR(3)			NOT NULL,
 				`createdAt`			TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 				`updatedAt`			TIMESTAMP		NULL ON UPDATE CURRENT_TIMESTAMP,
 				CONSTRAINT PK_disease_id		PRIMARY KEY (disease_id),
