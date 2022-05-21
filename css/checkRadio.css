@@ -1,0 +1,136 @@
+.mainChkRad {
+    display: inline;
+    position: relative;
+    cursor: pointer;
+    padding-top: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.mainChkRad input[type=checkbox],
+.mainChkRad input[type=radio] {
+    cursor: pointer;
+    height: 20px;
+    left: 25px;
+    opacity: 0;
+    position: absolute;
+    width: 20px;
+}
+
+/* Create a custom checkbox */
+.checkMark,
+.radioMark {
+    border: 1.5px solid #6B0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: var(--wt2);
+}
+
+.checkMark {
+    border-radius: 25%;
+}
+
+.radioMark {
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a background color */
+.mainChkRad:hover input~.checkMark,
+.mainChkRad:hover input~.radioMark {
+    background-color: #0AD;
+}
+
+/* When the checkbox is checked, add a background */
+.mainChkRad input:checked~.checkMark,
+.mainChkRad input:checked~.radioMark {
+    background-color: #BDB;
+}
+
+/* Create the checkMark/indicator (hidden when not checked) */
+.checkMark:after,
+.radioMark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkMark when checked */
+.mainChkRad input:checked~.checkMark:after,
+.mainChkRad input:checked~.radioMark:after {
+    display: block;
+}
+
+/* checkMark/indicator */
+.mainChkRad .checkMark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #6B0;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Dot/circle-indicator) */
+.mainChkRad .radioMark:after {
+    top: 6px;
+    left: 6px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #6B0;
+}
+
+
+/*
+
+.regUsers,
+.regAdmin {
+	border-radius: 10px;
+	padding: 12px 3px;
+}
+
+ .regUsers {
+	background-color: #FC9;
+}
+
+.regAdmin {
+	background-color: #F99;
+}
+
+.green,
+.blue,
+.blueBg {
+	color: var(--wt2);
+}
+
+.green {
+	background-color: #6B0;
+}
+
+.greenBg {
+	background-color: #699;
+}
+
+.blue {
+	background-color: #0AD;
+}
+
+.blueBg {
+	background-color: #69C;
+}
+
+.brd {
+	border: 1.5px solid #69C;
+}
+
+
+ */

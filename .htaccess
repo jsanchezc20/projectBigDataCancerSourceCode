@@ -1,0 +1,21 @@
+# EVITA EL LLISTAT DE DIRECTORIS
+# OPTIONS -INDEXES
+
+# POSA EN MARXA EL MODE REWRITE
+RewriteEngine on
+
+# BASE PER TOTES LES PETICIONS (DOCUMENTROOT)
+# RewriteBase /
+
+# PER L'APLICACIÓ
+# CONTROLADOR
+# Exemple: /book --> /index.php?c=book
+RewriteRule ^(index\.php/)?([a-z]+)/?$ /index.php?c=$2 [NC,L]
+
+# CONTROLADOR I MÈTODE
+# Exemple: /book/list --> /index.php?c=book&m=list
+RewriteRule ^(index\.php/)?([a-z]+)/([a-z]+)/?$ /index.php?c=$2&m=$3 [NC,L]
+
+# CONTROLADOR, MÈTODE I PARÀMETRE
+# Exemple: /book/show/2 --> /index.php?c=book&m=show&p=2
+RewriteRule ^(index\.php/)?([a-z]+)/([a-z]+)/([a-z0-9]+)/?$ /index.php?c=$2&m=$3&p=$4 [NC,L]

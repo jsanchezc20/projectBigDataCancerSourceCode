@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<style>
+/* Customize the label (the container) */
+.container{
+display:block;
+position:relative;
+padding-left:35px;
+margin-bottom:12px;
+cursor:pointer;
+font-size:22px;
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none}
+
+/* Hide the browser's default checkbox */
+.container input[type=checkbox],
+.container input[type=radio]{
+position:absolute;
+opacity:1;
+cursor:pointer;
+height:0;
+width:0}
+
+/* Create a custom checkbox */
+.checkmark,
+.radiomark{
+  border:2px solid #6B0;
+  position:absolute;
+  top:0;
+  left:0;
+  height:20px;
+  width:20px;
+  background-color:#FFF}
+
+.radiomark{border-radius:50%}
+
+/* On mouse-over, add a background color */
+.container:hover input ~ .checkmark,
+.container:hover input ~ .radiomark{background-color:#0AD}
+
+/* When the checkbox is checked, add a background */
+.container input:checked ~ .checkmark,
+.container input:checked ~ .radiomark{background-color:#BDB}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after,
+.radiomark:after{content:"";position:absolute;display:none}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after,
+.container input:checked ~ .radiomark:after{display:block}
+
+/* Checkmark/indicator */
+.container .checkmark:after{
+left:6px;
+top:2px;
+width:5px;
+height:10px;
+border:solid #6B0;
+border-width:0 3px 3px 0;
+-webkit-transform:rotate(45deg);
+-ms-transform:rotate(45deg);
+transform:rotate(45deg)}
+
+/* Dot/circle-indicator) */
+.container .radiomark:after{
+top:5px;
+left:5px;
+width:10px;
+height:10px;
+border-radius:50%;
+background:#6B0}
+</style>
+<body>
+
+<h1>Custom Checkboxes</h1>
+<label class="container">One
+  <input type="checkbox" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Two
+  <input type="checkbox">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Three
+  <input type="checkbox">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Four
+  <input type="checkbox">
+  <span class="checkmark"></span>
+</label>
+
+<h1>Custom Radio Buttons</h1>
+<label class="container">One
+  <input type="radio" checked="checked" name="radio">
+  <span class="radiomark"></span>
+</label>
+<label class="container">Two
+  <input type="radio" name="radio">
+  <span class="radiomark"></span>
+</label>
+<label class="container">Three
+  <input type="radio" name="radio">
+  <span class="radiomark"></span>
+</label>
+<label class="container">Four
+  <input type="radio" name="radio">
+  <span class="radiomark"></span>
+</label>
+
+</body>
+</html>
