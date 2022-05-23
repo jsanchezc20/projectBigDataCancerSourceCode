@@ -18,7 +18,7 @@
 			# MOSTRA EL MENÚ
 			Template::menu();
 			# MOSTRA EL CONTINGUT
-			Template::getContent($arrObj, ["user_id", "created", "updated"]);
+			Template::getContent($arrObj, ["user_id", "createdAt", "updatedAt"]);
 			#MUESTRA EL PIE DE PÁGINA
 			Template::footer();
 		?>

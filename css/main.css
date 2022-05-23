@@ -1,5 +1,6 @@
+/* TODO FOOTER OCULTO */
 .footer {
-	display:none;
+	/*display:none;*/
 }
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
@@ -7,7 +8,7 @@
 /* COLORS PRINCIPALS */
 :root {
 	--gn1: #244;
-	--gn2: #396;
+	--gn2: #224444;
 	--wt1: #EEE;
 	--wt2: #FFF;
 	--gy1: #999;
@@ -51,10 +52,12 @@ th {
 }
 
 .main > table {
-	min-height: 650px;
-	min-width: 400px;
-	width: 67%;
+	min-height: 50vh;
+	min-width: 50vw;
+	width: 69%;
 }
+
+
 
 /* ENCAPÇALAT */
 .headerContainer {
@@ -171,7 +174,8 @@ th {
 	width: 100%;
 }
 
-.menuContainerLinks > ul > li {
+.menuContainerLinks > ul > li,
+.menuFooter > ul > li {
 	display: inline;
 }
 
@@ -601,9 +605,9 @@ input:focus~.bar::before {
 		padding-top: 275px;
 	}
 
-	.main > table {
-		min-height: 450px;
-	}
+	/*.main > table {*/
+	/*	min-height: 450px;*/
+	/*}*/
 
 	.iconButtonContainer,
 	.logOut {

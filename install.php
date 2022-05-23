@@ -30,17 +30,17 @@
 		
 		imprimir("Connectat correctament!", true);
 
-		$strSQLTaulaAccess = 
+		$strSQLTableAccess =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `access` (
 				`access_id`		TINYINT	UNSIGNED NOT NULL AUTO_INCREMENT,
-				`description`	VARCHAR(50) NOT NULL,
+				`description`	CHAR(15) NOT NULL,
 				CONSTRAINT PK_access_id PRIMARY KEY (access_id)
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
 
-		$strSQLTaulaUsuari = 
+		$strSQLTableUsers =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `users` (
 				`user_id`		INT	UNSIGNED	NOT NULL AUTO_INCREMENT,
@@ -55,7 +55,7 @@
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
 
-		$strSQLTaulaContinent = 
+		$strSQLTableContinents =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `continents` (
 				`continent_code`	CHAR(2) NOT NULL UNIQUE KEY,
@@ -65,7 +65,7 @@
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
 
-		$strSQLTaulaCountry = 
+		$strSQLTableCountries =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `countries` (
 				`country_code`		CHAR(2) 	NOT NULL UNIQUE KEY,
@@ -78,52 +78,66 @@
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
 
-		$strSQLTaulaDiseaseType = 
+		$strSQLTableDiseasesTypes =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `diseases_types` (
-				`disease_type_code`	VARCHAR(3)	NOT NULL UNIQUE KEY,
+				`disease_type_code`	CHAR(3)		NOT NULL UNIQUE KEY,
 				`name`				VARCHAR(50) NOT NULL,
-				`description`		TEXT NOT NULL,
 				CONSTRAINT PK_disease_type_code PRIMARY KEY (disease_type_code)
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
+//			`description`		TEXT NOT NULL,
 
-		$strSQLTaulaDisease = 
+		$strSQLTabledeathsIntervals =
+			<<<SQL
+			CREATE TABLE IF NOT EXISTS `deaths_intervals` (
+				`death_interval_code`	CHAR(3)		NOT NULL UNIQUE KEY,
+			    `intervals`				CHAR(15)	NOT NULL,
+			    `column_reference`		CHAR(25)	NOT NULL,
+			    CONSTRAINT PK_death_interval_code PRIMARY KEY (death_interval_code)
+			)
+			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
+		SQL;
+
+		$strSQLTableDiseases =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `diseases` (
-				`disease_id`		INT	UNSIGNED	NOT NULL AUTO_INCREMENT,
-				`sex`				BOOLEAN			NOT NULL,
-				`age`				TINYINT			UNSIGNED NOT NULL,
-				`country_code` 		CHAR(2)			NOT NULL,
-				`disease_type_code`	CHAR(3)			NOT NULL,
-				`createdAt`			TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-				`updatedAt`			TIMESTAMP		NULL ON UPDATE CURRENT_TIMESTAMP,
-				CONSTRAINT PK_disease_id		PRIMARY KEY (disease_id),
-				CONSTRAINT FK_country_code		FOREIGN KEY (country_code) 		REFERENCES countries(country_code)			ON DELETE CASCADE ON UPDATE CASCADE,
-				CONSTRAINT FK_disease_type_code	FOREIGN KEY (disease_type_code)	REFERENCES diseases_types(disease_type_code)ON DELETE CASCADE ON UPDATE CASCADE
+				`disease_id`			INT	UNSIGNED	NOT NULL AUTO_INCREMENT,
+				`year`					INT UNSIGNED	NOT NULL,
+				`sex`					BOOLEAN			NOT NULL,
+				`age`					TINYINT			UNSIGNED NOT NULL,
+				`country_code` 			CHAR(2)			NOT NULL,
+				`disease_type_code`		CHAR(3)			NOT NULL,
+			    `death_interval_code`	CHAR(3)			NOT NULL,
+			    `count`					SMALLINT		NOT NULL,
+				`createdAt`				TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				`updatedAt`				TIMESTAMP		NULL ON UPDATE CURRENT_TIMESTAMP,
+				CONSTRAINT PK_disease_id			PRIMARY KEY (disease_id),
+				CONSTRAINT FK_country_code			FOREIGN KEY (country_code) 			REFERENCES countries(country_code)					ON DELETE CASCADE ON UPDATE CASCADE,
+				CONSTRAINT FK_disease_type_code		FOREIGN KEY (disease_type_code)		REFERENCES diseases_types(disease_type_code)		ON DELETE CASCADE ON UPDATE CASCADE,
+			    CONSTRAINT FK_death_interval_code	FOREIGN KEY (death_interval_code)	REFERENCES deaths_intervals(death_interval_code)	ON DELETE CASCADE ON UPDATE CASCADE
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;
 
 		$strAccio = "Creació de taula ";
-		executaConsulta($objConn, $strAccio, $strSQLTaulaAccess,		"access");
-		executaConsulta($objConn, $strAccio, $strSQLTaulaUsuari,		"users");
-		executaConsulta($objConn, $strAccio, $strSQLTaulaContinent,		"continents");
-		executaConsulta($objConn, $strAccio, $strSQLTaulaCountry,		"countries");
-		executaConsulta($objConn, $strAccio, $strSQLTaulaDiseaseType,	"diseasesTypes");
-		executaConsulta($objConn, $strAccio, $strSQLTaulaDisease,		"diseases");
-		
-		$strAccio = "Inserció de dades a la taula ";
+		executaConsulta($objConn, $strAccio, $strSQLTableAccess,			"access");
+		executaConsulta($objConn, $strAccio, $strSQLTableUsers,				"users");
+		executaConsulta($objConn, $strAccio, $strSQLTableContinents,		"continents");
+		executaConsulta($objConn, $strAccio, $strSQLTableCountries,			"countries");
+		executaConsulta($objConn, $strAccio, $strSQLTableDiseasesTypes,		"diseases_types");
+		executaConsulta($objConn, $strAccio, $strSQLTabledeathsIntervals,	"deaths_intervals");
+		executaConsulta($objConn, $strAccio, $strSQLTableDiseases,			"diseases");
 
-		$strSQLInsertAccessos = 
+		$strSQLInsertAccess =
 		<<<SQL
 			INSERT INTO access(access_id, description) VALUES
 				(1, "Admin"),
 				(2, "Editor"),
 				(3, "User");
-		SQL;	
-		
+		SQL;
+
 		$strPasswordUser1 = password_hash('123454321', PASSWORD_BCRYPT);
 		$strPasswordUser2 = password_hash('987654321', PASSWORD_BCRYPT);
 		$strPasswordUser3 = password_hash('123456789', PASSWORD_BCRYPT);
@@ -400,16 +414,195 @@
 				("YE", "Yemen", "Yemen", "AS"),
 				("ZM", "Zambia", "Republic of Zambia", "AF"),
 				("ZW", "Zimbabwe", "Republic of Zimbabwe", "AF");
-		SQL;	
+		SQL;
 
-		executaConsulta($objConn, $strAccio, $strSQLInsertAccessos, "access");
-		executaConsulta($objConn, $strAccio, $strSQLInsertUsers, "users");
-		executaConsulta($objConn, $strAccio, $strSQLInsertContinents, "continent");
-		executaConsulta($objConn, $strAccio, $strSQLInsertCountries, "countries");
-		
+
+
+//		INSERT INTO diseases_types(disease_type_code, name, description) VALUES
+		$strSQLInsertDiseasesTypes =
+		<<<SQL
+			INSERT INTO diseases_types(disease_type_code, name) VALUES 
+				("C0", "Malignant neoplasm of lip"),
+				("C1", "Malignant neoplasm of base of tongue"),
+				("C2", "Malignant neoplasm of other and unspecified parts of tongue"),
+				("C3", "Malignant neoplasm of gum"),
+				("C4", "Malignant neoplasm of floor of mouth"),
+				("C5", "Malignant neoplasm of palate"),
+				("C6", "Malignant neoplasm of other and unspecified parts of mouth"),
+				("C7", "Malignant neoplasm of parotid gland"),
+				("C8", "Malignant neoplasm of other and unspecified major salivary glands"),
+				("C9", "Malignant neoplasm of tonsil"),
+				("C10", "Malignant neoplasm of oropharynx"),
+				("C11", "Malignant neoplasm of nasopharynx"),
+				("C12", "Malignant neoplasm of pyriform sinus"),
+				("C13", "Malignant neoplasm of hypopharynx"),
+				("C14", "Malignant neoplasm of other and ill-defined sites in the lip, oral cavity and pharynx"),
+				("C15", "Malignant neoplasm of esophagus"),
+				("C16", "Malignant neoplasm of stomach"),
+				("C17", "Malignant neoplasm of small intestine"),
+				("C18", "Malignant neoplasm of colon"),
+				("C19", "Malignant neoplasm of rectosigmoid junction"),
+				("C20", "Malignant neoplasm of rectum"),
+				("C21", "Malignant neoplasm of anus and anal canal"),
+				("C22", "Malignant neoplasm of liver and intrahepatic bile ducts"),
+				("C23", "Malignant neoplasm of gallbladder"),
+				("C24", "Malignant neoplasm of other and unspecified parts of biliary tract"),
+				("C25", "Malignant neoplasm of pancreas"),
+				("C26", "Malignant neoplasm of other and ill-defined digestive organs"),
+				("C28", "Malignant neoplasm of trachea, bronchus and lung"),
+				("C29", "Malignant neoplasm of female breast(carcinoma in situ of breast and genitourinary system)"),
+				("C30", "Malignant neoplasm of nasal cavity and middle ear"),
+				("C31", "Malignant neoplasm of accessory sinuses"),
+				("C32", "Malignant neoplasm of larynx"),
+				("C33", "Malignant neoplasm of trachea"),
+				("C34", "Malignant neoplasm of bronchus and lung"),
+				("C37", "Malignant neoplasm of thymus"),
+				("C38", "Malignant neoplasm of heart, mediastinum and pleura"),
+				("C39", "Malignant neoplasm of other and ill-defined sites in the respiratory system and intrathoracic organs"),
+				("C40", "Malignant neoplasm of bone and articular cartilage of limbs"),
+				("C41", "Malignant neoplasm of bone and articular cartilage of other and unspecified sites"),
+				("C43", "Malignant melanoma of skin"),
+				("C44", "Other and unspecified malignant neoplasm of skin"),
+				("C45", "Mesothelioma"),
+				("C46", "Kaposi's sarcoma"),
+				("C47", "Malignant neoplasm of peripheral nerves and autonomic nervous system"),
+				("C48", "Malignant neoplasm of retroperitoneum and peritoneum"),
+				("C49", "Malignant neoplasm of other connective and soft tissue"),
+				("C50", "Malignant neoplasm of breast"),
+				("C51", "Malignant neoplasm of vulva"),
+				("C52", "Malignant neoplasm of vagina"),
+				("C53", "Malignant neoplasm of cervix uteri"),
+				("C54", "Malignant neoplasm of corpus uteri"),
+				("C55", "Malignant neoplasm of uterus, part unspecified"),
+				("C56", "Malignant neoplasm of ovary"),
+				("C57", "Malignant neoplasm of other and unspecified female genital organs"),
+				("C58", "Malignant neoplasm of placenta"),
+				("C60", "Malignant neoplasm of penis"),
+				("C61", "Malignant neoplasm of prostate"),
+				("C62", "Malignant neoplasm of testis"),
+				("C63", "Malignant neoplasm of other and unspecified male genital organs"),
+				("C64", "Malignant neoplasm of kidney, except renal pelvis"),
+				("C65", "Malignant neoplasm of renal pelvis"),
+				("C66", "Malignant neoplasm of ureter"),
+				("C67", "Malignant neoplasm of bladder"),
+				("C68", "Malignant neoplasm of other and unspecified urinary organs"),
+				("C69", "Malignant neoplasm of eye and adnexa"),
+				("C70", "Malignant neoplasm of meninges"),
+				("C71", "Malignant neoplasm of brain"),
+				("C72", "Malignant neoplasm of spinal cord, cranial nerves and other parts of central nervous system"),
+				("C73", "Malignant neoplasm of thyroid gland"),
+				("C74", "Malignant neoplasm of adrenal gland"),
+				("C75", "Malignant neoplasm of other endocrine glands and related structures"),
+				("C76", "Malignant neoplasm of other and ill-defined sites"),
+				("C77", "Secondary and unspecified malignant neoplasm of lymph nodes"),
+				("C78", "Secondary malignant neoplasm of respiratory and digestive organs"),
+				("C79", "Secondary malignant neoplasm of other and unspecified sites"),
+				("C80", "Malignant neoplasm without specification of site"),
+				("C81", "Hodgkin lymphoma"),
+				("C82", "Follicular lymphoma"),
+				("C83", "Non-follicular lymphoma"),
+				("C84", "Mature T/NK-cell lymphomas"),
+				("C85", "Other specified and unspecified types of non-Hodgkin lymphoma"),
+				("C86", "Other specified types of T/NK-cell lymphoma"),
+				("C88", "Malignant immunoproliferative diseases and certain other B-cell lymphomas"),
+				("C90", "Multiple myeloma and malignant plasma cell neoplasms"),
+				("C91", "Lymphoid leukemia"),
+				("C92", "Myeloid leukemia"),
+				("C93", "Monocytic leukemia"),
+				("C94", "Other leukemias of specified cell type"),
+				("C95", "Leukemia of unspecified cell type"),
+				("C96", "Other and unspecified malignant neoplasms of lymphoid, hematopoietic and related tissue");
+		SQL;
+
+		$strSQLdeathsInterval =
+		<<<SQL
+			INSERT INTO deaths_intervals(death_interval_code, intervals, column_reference) VALUES
+				("Y0", "0", "deaths_0"),
+				("Y1", "1", "deaths1"),
+				("Y2", "2", "deaths2"),
+				("Y3", "3", "deaths3"),
+				("Y4", "4", "deaths4"),
+				("Y5", "5_9", "deaths5_9"),
+				("Y10", "10_14", "deaths10_14"),
+				("Y15", "15_19", "deaths15_19"),
+				("Y20", "20_24", "deaths20_24"),
+				("Y25", "25_29", "Deaths25_29d"),
+				("Y30", "30_34", "deaths30_34"),
+				("Y35", "35_39", "deaths35_39"),
+				("Y40", "40_44", "deaths40_44"),
+				("Y45", "45_49", "deaths45_49"),
+				("Y50", "50_54", "deaths50_54"),
+				("Y55", "55_59", "Deaths55_59"),
+				("Y60", "60_64", "deaths60_64"),
+				("Y65", "65_69", "deaths65_69"),
+				("Y70", "70_74", "deaths70_74"),
+				("Y75", "75_79", "Deaths75_79d"),
+				("Y80", "80_84", "Deaths80_84d"),
+				("Y85", "85_89", "deaths85_89"),
+				("Y90", "90_94", "deaths90_94"),
+				("Y95", "95_", "deaths95_or_mored"),
+				("D0", "0", "deaths0_days"),
+				("D1", "1_6", "deaths1_6days"),
+				("D7", "7_27", "deaths7_27days"),
+				("D28", "28_365", "deaths28_365days"),
+				("U", "unspecified", "deaths_age_unspecified");
+		SQL;
+
+		$strAccio = "Inserció de dades a la taula ";
+		executaConsulta($objConn, $strAccio, $strSQLInsertAccess,		"access");
+		executaConsulta($objConn, $strAccio, $strSQLInsertUsers,		"users");
+		executaConsulta($objConn, $strAccio, $strSQLInsertContinents,	"continent");
+		executaConsulta($objConn, $strAccio, $strSQLInsertCountries,	"countries");
+		executaConsulta($objConn, $strAccio, $strSQLInsertDiseasesTypes,"diseases_types");
+		executaConsulta($objConn, $strAccio, $strSQLdeathsInterval,		"deaths_intervals");
+
+		$strSQLdiseasesCleanup =
+		<<<SQL
+			CREATE TABLE diseases_cleanup (
+				id						MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				country_code			CHAR(2) NOT NULL,
+				year					SMALLINT UNSIGNED NOT NULL,
+				sex						BOOLEAN NOT NULL,
+				deaths_0				SMALLINT UNSIGNED NOT NULL,
+				deaths1					SMALLINT UNSIGNED NOT NULL,
+				deaths2					SMALLINT UNSIGNED NOT NULL,
+				deaths3					SMALLINT UNSIGNED NOT NULL,
+				deaths4					SMALLINT UNSIGNED NOT NULL,
+				deaths5_9				SMALLINT UNSIGNED NOT NULL,
+				deaths10_14				SMALLINT UNSIGNED NOT NULL,
+				deaths15_19				SMALLINT UNSIGNED NOT NULL,
+				deaths20_24				SMALLINT UNSIGNED NOT NULL,
+				Deaths25_29d			SMALLINT UNSIGNED NOT NULL,
+				deaths30_34				SMALLINT UNSIGNED NOT NULL,
+				deaths35_39				SMALLINT UNSIGNED NOT NULL,
+				deaths40_44				SMALLINT UNSIGNED NOT NULL,
+				deaths45_49				SMALLINT UNSIGNED NOT NULL,
+				deaths50_54				SMALLINT UNSIGNED NOT NULL,
+				Deaths55_59				SMALLINT UNSIGNED NOT NULL,
+				deaths60_64				SMALLINT UNSIGNED NOT NULL,
+				deaths65_69				SMALLINT UNSIGNED NOT NULL,
+				deaths70_74				SMALLINT UNSIGNED NOT NULL,
+				Deaths75_79d			SMALLINT UNSIGNED NOT NULL,
+				Deaths80_84d			SMALLINT UNSIGNED NOT NULL,
+				deaths85_89				SMALLINT UNSIGNED NOT NULL,
+				deaths90_94				SMALLINT UNSIGNED NOT NULL,
+				deaths95_or_mored		SMALLINT UNSIGNED NOT NULL,
+				deaths_age_unspecified	SMALLINT UNSIGNED NOT NULL,
+				deaths0_days			SMALLINT UNSIGNED NOT NULL,
+				deaths1_6days			SMALLINT UNSIGNED NOT NULL,
+				deaths7_27days			SMALLINT UNSIGNED NOT NULL,
+				deaths28_365days		SMALLINT UNSIGNED NOT NULL,
+				disease_type_code		CHAR(3)	NOT NULL,
+				PRIMARY KEY (id)
+			)
+			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
+		SQL;
+
+		$strAccio = "Creació de taula neteja  ";
+		executaConsulta($objConn, $strAccio, $strSQLdiseasesCleanup,"diseases_cleanup");
+
 	} catch(PDOException $e) {
 		imprimir("Connexió fallida:".$e->getMessage(), false);
 	}
 
 	$objConn = null;
-?>

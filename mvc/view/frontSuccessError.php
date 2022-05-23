@@ -10,6 +10,8 @@
 		<link rel="stylesheet" type="text/css" href="<?=DEFAULT_PATH?>css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="<?=DEFAULT_PATH?>css/main.css">
 		<script src="<?=DEFAULT_PATH?>js/main.js"></script>
+
+
 	</head>
 	<body onload="if (typeof volver==='object')volver.focus();">
 		<?php
@@ -57,7 +59,12 @@
 							<br>
 							El tabac s'associa al 16-40% dels casos, fumar produeix càncer de pulmó, estómac, esòfag i mama, així com de laringe, faringe, fetge, leucèmia, ronyó i pàncrees. A més afecta també afecta als quals li envolten (fumadors passius).
 							El 18% són atribuïbles a infeccions persistents provocades per virus, bacteris o paràsits, destaquen:
-							<img class="imgContent fr" src="../img/content/riskFactors.png" alt="" width="400px" height="304px">
+                            <canvas id="myChart" width="400" height="400"></canvas>
+                            <script src="<?=DEFAULT_PATH?>js/chart/chart.js"></script>
+                            <script src="<?=DEFAULT_PATH?>js/chart/utils.js"></script>
+                            <script src="<?=DEFAULT_PATH?>js/chart/riskFactors.js"></script>
+
+                            <!--							<img class="imgContent fr" src="../img/content/riskFactors.png" alt="" width="400px" height="304px">-->
 							<ul>
 								<li> El virus del papil·loma humà (càncer de coll uterí, càncer de penis i càncer oral)</li>
 								<li> El virus de l'hepatitis B (càncer de fetge).</li>
