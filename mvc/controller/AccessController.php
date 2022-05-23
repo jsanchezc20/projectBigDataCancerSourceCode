@@ -24,13 +24,13 @@ class AccessController {
 			throw new Exception("No s'ha indicat l'identificador de l'acció.");
 		
 		# RECUPERA L'ACCÉS
-		$objAccion = AccessModel::getOne($id);
+		$objAccess = AccessModel::getOne($id);
 
 		# COMPROBA QUE L'ACCÉS EXISTEIX
-		if (!$objAccion)
+		if (!$objAccess)
 			throw new Exception("No existeixix l'acció amb identificador '$id'.");
 
-		FC::getUserView("access/details", $objAccion);
+		FC::getUserView("access/details", $objAccess);
 	}
 
 	# OBTÉ LA DESCRIPCIÓ DE LA TAULA PER MUNTAR EL FORMULARI
@@ -48,26 +48,26 @@ class AccessController {
 	# CREA I GUARDA EL NOU ACCÉS MAB DADES POST
 	public function store() {
 		# CREA L'OBJECTE
-		$objAccion=new Accion();
+		$objAccess=new AccessModel();
 
 		# GUARDA LES DADES EN L'OBJECTE EN FUNCIÓ
 		# DE LES CLAUS DEL VECTOR ASSOCIATIU $_POST 
 		foreach ($_POST as $key1 => $value1) {
-			foreach ($objAccion as $key2 => $value2) {
+			foreach ($objAccess as $key2 => $value2) {
 				if ($key1==$key2) {
-					$objAccion->$key2=$value1;
+					$objAccess->$key2=$value1;
 					break;
 				}
 			}
 		}
 
 		# GUARDA A LA BD
-		$id=$objAccion->insert();
+		$id=$objAccess->insert();
 
 		if ($id)
-			$arrMsg = ["Success","Accés<br>'$objAccion->nombre' amb codi '$objAccion->codigo'<br>insertat correctament.","action"];
+			$arrMsg = ["Success","Accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'<br>insertat correctament.","action"];
 		else
-			$arrMsg = ["Error","No s'ha pogut guardar l'acciés<br>'$objAccion->nombre' amb codi '$objAccion->codigo'.<br>
+			$arrMsg = ["Error","No s'ha pogut guardar l'acciés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'.<br>
 						No pot haver-hi una clau duplicada.","action"];
 
 		FC::getUserView("frontSuccessError", $arrMsg);
@@ -80,16 +80,16 @@ class AccessController {
 			throw new Exception("No s'ha indicat l'identificador de l'accés.");
 
 		# RECUPERA L'ACCÉS
-		$objAccion=Accion::getOne($id);
+		$objAccess = AccessModel::getOne($id);
 
 		# COMPROBA QUE L'ACCÉS EXISTEIX
-		if (!$objAccion)
+		if (!$objAccess)
 			throw new Exception("No existeixix l'accés amb identificador '$id'.");
 
 		# RECUPERA L'USUARI PER PASSAR-HO A LA VISTA
 		# $OBJUSER = USERLOGINMODEL::GETUSER();
 
-		FC::getUserView("access/frmUpdate", $objAccion);
+		FC::getUserView("access/frmUpdate", $objAccess);
 	}
 
 	public function edit() {
@@ -97,33 +97,33 @@ class AccessController {
 			throw new Exception("No s'han rebut dades.");
 
 		# CREA L'OBJECTE
-		$objAccion=new Accion();
+		$objAccess = new AccessModel();
 
 		# GUARDA LES DADES EN L'OBJECTE EN FUNCIÓ
 		# DE LES CLAUS DEL VECTOR ASSOCIATIU $_POST
 		//Utils::checkVariable($_POST);
 		foreach ($_POST as $key1 => $value1) {
-			foreach ($objAccion as $key2 => $value2) {
+			foreach ($objAccess as $key2 => $value2) {
 				if ($key1==$key2) {
-					$objAccion->$key2=$value1;
+					$objAccess->$key2=$value1;
 					break;
 				}
 			}
 		}
 		/*# GUARDA LES DADES QUE ARRIBEN VIA POST
 		# EN FUNCIÓ DE L'OBJECTE ¿PREGUNTA?
-		foreach ($objAccion as $key => $value)
-			$objAccion->$key=is_numeric($value)?(int)$_POST[$key]:$_POST[$key];
+		foreach ($objAccess as $key => $value)
+			$objAccess->$key=is_numeric($value)?(int)$_POST[$key]:$_POST[$key];
 		*/
 
 		# GUARDA A LA BD
-		$id=$objAccion->update();
+		$id=$objAccess->update();
 		if ($id)
-			$arrMsg = ["Success","Accés<br>'$objAccion->nombre' amb codi '$objAccion->codigo'<br>actualitzat correctamente.","action"];
+			$arrMsg = ["Success","Accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'<br>actualitzat correctamente.","action"];
 		elseif ($id=== 0)
-			$arrMsg = ["Warning","No s'han realitzat canvis en l'accés<br>'$objAccion->nombre' amb codi '$objAccion->codigo'.","action"];
+			$arrMsg = ["Warning","No s'han realitzat canvis en l'accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'.","action"];
 		else
-			$arrMsg = ["Error","No s'ha pogut actualitzar l'accés<br>'$objAccion->nombre' amb codi '$objAccion->codigo'.<br>
+			$arrMsg = ["Error","No s'ha pogut actualitzar l'accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'.<br>
 						No pot haver-hi una clau duplicada.","action"];
 
 		FC::getUserView("frontSuccessError", $arrMsg);
@@ -136,13 +136,13 @@ class AccessController {
 			throw new Exception("No s'ha indicat l'identificador de la acción.");
 
 		# RECUPERA L'ACCÉS
-		$objAccion=Accion::getOne($id);
+		$objAccess = AccessModel::getOne($id);
 
 		# COMPROBA QUE L'ACCÉS EXISTEIX
-		if (!$objAccion)
+		if (!$objAccess)
 			throw new Exception("No existeix l'accés amb identificador '$id'.", 1);
 		
-		FC::getUserView("access/frmDelete", $objAccion);
+		FC::getUserView("access/frmDelete", $objAccess);
 	}
 
 	# ELIMINA L'ACCÉS
@@ -152,7 +152,7 @@ class AccessController {
 		$strAccion=(string)$_POST["nombre"];
 		$strCodigo=(string)$_POST["codigo"];
 
-		if (!Accion::delete($id))
+		if (!AccessModel::delete($id))
 			throw new Exception("No s'ha pogut esborrar l'accés<br>'$strAccion' amb codi '$strCodigo'.");
 		
 		# MOSTRA LA VISTA

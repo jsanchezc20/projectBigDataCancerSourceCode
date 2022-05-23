@@ -5,8 +5,8 @@ class UserModel {
 			$name		= "",
 			$password	= "",
 			$access_id	= 0,
-			$created	= "",
-			$updated	= "";
+			$createdAt	= "",
+			$updatedAt	= "";
 
 	### MÈTODES ###
 	# IDENTIFICACIÓ D'USUARI
@@ -57,7 +57,7 @@ class UserModel {
 					INNER JOIN access a ON u.access_id=a.access_id
 					WHERE access_id = ?;";
 					
-		return DB::selectAll($strSQL, [$intId]);
+		return DB::selectAll($strSQL, "stdClass", [$intId]);
 	}
 
 	# INSERT » CREA NOU USUARI

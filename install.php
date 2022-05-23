@@ -559,7 +559,6 @@
 		$strSQLdiseasesCleanup =
 		<<<SQL
 			CREATE TABLE diseases_cleanup (
-				id						MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
 				country_code			CHAR(2) NOT NULL,
 				year					SMALLINT UNSIGNED NOT NULL,
 				sex						BOOLEAN NOT NULL,
@@ -592,8 +591,7 @@
 				deaths1_6days			SMALLINT UNSIGNED NOT NULL,
 				deaths7_27days			SMALLINT UNSIGNED NOT NULL,
 				deaths28_365days		SMALLINT UNSIGNED NOT NULL,
-				disease_type_code		CHAR(3)	NOT NULL,
-				PRIMARY KEY (id)
+				disease_type_code		CHAR(3)	NOT NULL
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;
 		SQL;

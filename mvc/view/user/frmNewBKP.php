@@ -29,7 +29,7 @@
 			<?php
 			foreach($arrObj as $objUser)
 				foreach ($objUser as $key => $value)
-					if ($key == "Field" && !(strpos("user_id created updated", $value) !== false)) { ?>
+					if ($key == "Field" && !(strpos("user_id createdAt updatedAt", $value) !== false)) { ?>
 						<tr>
 							<th class="tar pr"><?php
                                 $strTitulo="";

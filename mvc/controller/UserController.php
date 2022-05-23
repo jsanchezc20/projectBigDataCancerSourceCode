@@ -46,7 +46,7 @@ class UserController {
 	# CREA I GUARDA EL NOU USUARI AMB DADES POST
 	public function store() {
 		# CREA L'OBJECTE
-		$objUser = new Usuario();
+		$objUser = new UserModel();
 
 		# GUARDA LES DADES EN L'OBJECTE EN FUNCIÓ
 		# DE LES CLAUS DEL VECTOR ASSOCIATIU $_POST 
@@ -95,7 +95,7 @@ class UserController {
 			throw new Exception("No s'han rebut dades.");
 
 		# CREA L'OBJECTE
-		$objUser = new Usuario();
+		$objUser = new UserModel();
 
 		# GUARDA LES DADES QUE ARRIBEN VIA POST
 		# EN FUNCIÓ DE L'OBJECTE USUARI

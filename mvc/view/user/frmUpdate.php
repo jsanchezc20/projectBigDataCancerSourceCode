@@ -29,7 +29,7 @@
                         <input type="hidden" name="<?=$key?>" value="<?=$value?>"><?php
                     }
                     else {
-						if (!(strpos(" user_id created updated", $key) !== false)) { ?>
+						if (!(strpos(" user_id createdAt updatedAt", $key) !== false)) { ?>
                             <tr>
                                 <th class="formDetails tar">
                                     <?php

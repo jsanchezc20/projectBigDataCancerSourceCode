@@ -25,7 +25,7 @@
                 <form action="/user/store" method="post"><?php
                 foreach($arrObj as $objUser) {
 					foreach ($objUser as $key => $value) {
-						if ($key == "Field" && !(strpos("user_id created updated", $value) !== false)) {
+						if ($key == "Field" && !(strpos("user_id createdAt updatedAt", $value) !== false)) {
 							$strPasswordMatch = ""; ?>
                             <div class="formGroup"><?php
                                 switch ($value) {
