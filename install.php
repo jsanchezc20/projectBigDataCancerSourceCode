@@ -81,9 +81,9 @@
 		$strSQLTableDiseasesTypes =
 		<<<SQL
 			CREATE TABLE IF NOT EXISTS `diseases_types` (
-				`disease_type_code`	CHAR(3)		NOT NULL UNIQUE KEY,
-				`name`				VARCHAR(50) NOT NULL,
-			    `description`		TEXT		NOT NULL,
+				`disease_type_code`	CHAR(3)			NOT NULL UNIQUE KEY,
+				`name`				VARCHAR(255) 	NOT NULL,
+			    `description`		TEXT			NOT NULL,
 				CONSTRAINT PK_disease_type_code PRIMARY KEY (disease_type_code)
 			)
 			DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ENGINE = InnoDB;

@@ -2,9 +2,9 @@
 class CountryModel {
 	### PROPIETATS ###
 	public	$country_code = "",
-			$name= "",
-			$fullName= "",
-			$continent_code="";
+			$name = "",
+			$fullName = "",
+			$continent_code = "";
 
 
 	### MÈTODES ###
@@ -27,7 +27,7 @@ class CountryModel {
 	# INSERT » CREA UN NOU ACCÉS
 	public function insert() {
 
-		$strSQL = " INSERT INTO access(country_code, name, fullName, continent_code)
+		$strSQL = " INSERT INTO countries(country_code, name, fullName, continent_code)
 					VALUES	(?, ?, ?, ?);";
 
 		return DB::insert($strSQL, [$this->country_code, $this->name, $this->fullName, $this->continent_code]);

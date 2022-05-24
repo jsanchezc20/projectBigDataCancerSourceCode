@@ -73,7 +73,7 @@ class UserModel {
 	public function update() {
 
 		$strSQL = " UPDATE users 
-					SET name = ?, password = ?, access = ?
+					SET name = ?, password = ?, access_id = ?
 					WHERE user_id = ?;";
 
 		return DB::update($strSQL, [$this->name, $this->password, $this->access, $this->user_id]);
