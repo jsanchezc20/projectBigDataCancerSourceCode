@@ -59,6 +59,15 @@
 						// 	throw new Exception("No tens permissos per accedir a l'apartat d'usuaris.");
 						$c = "UserController";
 						break;
+					case "disease":
+						$c = "DiseaseController";
+						break;
+					case "diseaseType":
+						$c = "DiseaseTypeController";
+						break;
+					case "country":
+						$c = "CountryController";
+						break;
 					// TODO
 				}
 

@@ -110,9 +110,9 @@
                         <li><a class="<?=$classLogOutIn?>" href="/query">Recursos</a></li>
                         <li><a class="<?=$classLogOutIn?>" href="/welcome/contact">Contacte</a></li><?php
 						if ($blnAdmin) { ?>
-                            <li><a class="<?=$classLogOutIn?>" href="/access/create">+ accés</a></li>
-                            <li><a class="<?=$classLogOutIn?>" href="/module/create">+ módulo</a></li>
-                            <li><a class="<?=$classLogOutIn?>" href="/query/create">+ pregunta</a></li>
+                            <li><a class="<?=$classLogOutIn?>" href="/country/create">+ paisos</a></li>
+                            <li><a class="<?=$classLogOutIn?>" href="/diseaseType/create">+ tipus</a></li>
+                            <li><a class="<?=$classLogOutIn?>" href="/disease/create">+ enfermetats</a></li>
                             <li><a class="<?=$classLogOutIn?>" href="/user">usuaris</a></li><?php
 						} ?>
                     </ul>
