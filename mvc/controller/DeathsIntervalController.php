@@ -9,12 +9,12 @@ class DeathsIntervalController {
 	# LLISTAT D'ACCESSOS
 	public function list() {
 		# RECUPERA LA LLISTA D'ACCIONS
-		$objAccess = AccessModel::getAll();
+		$objDeathsIntervals = DeathsIntervalsModel::getAll();
 
-		if (empty($objAccess))
+		if (empty($objDeathsIntervals))
 			throw new Exception("No hi ha registres per mostrar.");
 
-		FC::getUserView("access/list", $objAccess);
+		FC::getUserView("deathsIntervals/list", $objDeathsIntervals);
 	}
 
 	# MOSTRA UN ACCÉS
@@ -24,13 +24,13 @@ class DeathsIntervalController {
 			throw new Exception("No s'ha indicat l'identificador de l'acció.");
 
 		# RECUPERA L'ACCÉS
-		$objAccess = AccessModel::getOne($id);
+		$objDeathsIntervals = DeathsIntervalsModel::getOne($id);
 
 		# COMPROBA QUE L'ACCÉS EXISTEIX
-		if (!$objAccess)
-			throw new Exception("No existeixix l'acció amb identificador '$id'.");
+		if (!$objDeathsIntervals)
+			throw new Exception("No existeixix l'interval de morts amb identificador '$id'.");
 
-		FC::getUserView("access/details", $objAccess);
+		FC::getUserView("deathsIntervals/details", $objDeathsIntervals);
 	}
 
 	# OBTÉ LA DESCRIPCIÓ DE LA TAULA PER MUNTAR EL FORMULARI
@@ -38,37 +38,37 @@ class DeathsIntervalController {
 		if (!UserLoginModel::isAdmin())
 			throw new Exception('No tens permis');
 
-		$strSQL = "DESCRIBE access;";
+		$strSQL = "DESCRIBE deaths_Intervals;";
 
-		$objAccess=DB::selectAll($strSQL);
+		$objDeathsIntervals=DB::selectAll($strSQL);
 
-		FC::getUserView("access/frmNew", $objAccess);
+		FC::getUserView("deathsIntervals/frmNew", $objDeathsIntervals);
 	}
 
 	# CREA I GUARDA EL NOU ACCÉS MAB DADES POST
 	public function store() {
 		# CREA L'OBJECTE
-		$objAccess=new AccessModel();
+		$objDeathsIntervals=new DeathsIntervalsModel();
 
 		# GUARDA LES DADES EN L'OBJECTE EN FUNCIÓ
 		# DE LES CLAUS DEL VECTOR ASSOCIATIU $_POST
 		foreach ($_POST as $key1 => $value1) {
-			foreach ($objAccess as $key2 => $value2) {
+			foreach ($objDeathsIntervals as $key2 => $value2) {
 				if ($key1==$key2) {
-					$objAccess->$key2=$value1;
+					$objDeathsIntervals->$key2=$value1;
 					break;
 				}
 			}
 		}
 
 		# GUARDA A LA BD
-		$id=$objAccess->insert();
+		$id=$objDeathsIntervals->insert();
 
 		if ($id)
-			$arrMsg = ["Success","Accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'<br>insertat correctament.","action"];
+			$arrMsg = ["Success","L'interval de morts<br>'$objDeathsIntervals->intervals' amb codi '$objDeathsIntervals->death_interval_code'<br>insertat correctament.","action"];
 		else
-			$arrMsg = ["Error","No s'ha pogut guardar l'acciés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'.<br>
-						No pot haver-hi una clau duplicada.","action"];
+			$arrMsg = ["Error","No s'ha pogut guardar l'interval de morts<br>'$objDeathsIntervals->intervals' amb codi '$objDeathsIntervals->death_interval_code'.<br>
+						No pot tenir una clau duplicada.","action"];
 
 		FC::getUserView("frontSuccessError", $arrMsg);
 	}
@@ -77,19 +77,19 @@ class DeathsIntervalController {
 	public function update(int $id = 0) {
 		# COMPROBA QUE ARRIBA L'ID
 		if (!$id)
-			throw new Exception("No s'ha indicat l'identificador de l'accés.");
+			throw new Exception("No s'ha indicat l'identificador de l'interval de morts.");
 
 		# RECUPERA L'ACCÉS
-		$objAccess = AccessModel::getOne($id);
+		$objDeathsIntervals = DeathsIntervalsModel::getOne($id);
 
 		# COMPROBA QUE L'ACCÉS EXISTEIX
-		if (!$objAccess)
-			throw new Exception("No existeixix l'accés amb identificador '$id'.");
+		if (!$objDeathsIntervals)
+			throw new Exception("No existeix l'interval de morts amb identificador '$id'.");
 
 		# RECUPERA L'USUARI PER PASSAR-HO A LA VISTA
 		# $OBJUSER = USERLOGINMODEL::GETUSER();
 
-		FC::getUserView("access/frmUpdate", $objAccess);
+		FC::getUserView("deathsIntervals/frmUpdate", $objDeathsIntervals);
 	}
 
 	public function edit() {
@@ -97,15 +97,15 @@ class DeathsIntervalController {
 			throw new Exception("No s'han rebut dades.");
 
 		# CREA L'OBJECTE
-		$objAccess = new AccessModel();
+		$objDeathsIntervals = new DeathsIntervalsModel();
 
 		# GUARDA LES DADES EN L'OBJECTE EN FUNCIÓ
 		# DE LES CLAUS DEL VECTOR ASSOCIATIU $_POST
 		//Utils::checkVariable($_POST);
 		foreach ($_POST as $key1 => $value1) {
-			foreach ($objAccess as $key2 => $value2) {
+			foreach ($objDeathsIntervals as $key2 => $value2) {
 				if ($key1==$key2) {
-					$objAccess->$key2=$value1;
+					$objDeathsIntervals->$key2=$value1;
 					break;
 				}
 			}
@@ -117,13 +117,13 @@ class DeathsIntervalController {
 		*/
 
 		# GUARDA A LA BD
-		$id=$objAccess->update();
+		$id=$objDeathsIntervals->update();
 		if ($id)
-			$arrMsg = ["Success","Accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'<br>actualitzat correctamente.","action"];
+			$arrMsg = ["Success","L'interval de morts<br>'$objDeathsIntervals->intervals' amb codi '$objDeathsIntervals->death_interval_code'<br>actualitzat correctament.","action"];
 		elseif ($id=== 0)
-			$arrMsg = ["Warning","No s'han realitzat canvis en l'accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'.","action"];
+			$arrMsg = ["Warning","No s'han realitzat canvis en l'interval de morts<br>'$objDeathsIntervals->intervals' amb codi '$objDeathsIntervals->death_interval_code'.","action"];
 		else
-			$arrMsg = ["Error","No s'ha pogut actualitzar l'accés<br>'$objAccess->nombre' amb codi '$objAccess->codigo'.<br>
+			$arrMsg = ["Error","No s'ha pogut actualitzar l'interval de morts<br>'$objDeathsIntervals->intervals' amb codi '$objDeathsIntervals->death_interval_code'.<br>
 						No pot haver-hi una clau duplicada.","action"];
 
 		FC::getUserView("frontSuccessError", $arrMsg);
@@ -133,30 +133,30 @@ class DeathsIntervalController {
 	public function delete($id) {
 		# COMPROBA QUE ARRIBA L'ID
 		if (!$id)
-			throw new Exception("No s'ha indicat l'identificador de la acción.");
+			throw new Exception("No s'ha indicat l'identificador de l'interval de morts'.");
 
 		# RECUPERA L'ACCÉS
-		$objAccess = AccessModel::getOne($id);
+		$objDeathsIntervals = DeathsIntervalsModel::getOne($id);
 
 		# COMPROBA QUE L'ACCÉS EXISTEIX
-		if (!$objAccess)
-			throw new Exception("No existeix l'accés amb identificador '$id'.", 1);
+		if (!$objDeathsIntervals)
+			throw new Exception("No existeix l'interval de morts amb identificador '$id'.", 1);
 
-		FC::getUserView("access/frmDelete", $objAccess);
+		FC::getUserView("deathsIntervals/frmDelete", $objDeathsIntervals);
 	}
 
 	# ELIMINA L'ACCÉS
 	public function destroy() {
 		# RECUPEAR L'ID VIA POST
 		$id = (int)$_POST["id"];
-		$strAccion=(string)$_POST["nombre"];
-		$strCodigo=(string)$_POST["codigo"];
+		$strNom=(string)$_POST["intervals"];
+		$strDeathsIntervalsCode=(string)$_POST["death_interval_code"];
 
-		if (!AccessModel::delete($id))
-			throw new Exception("No s'ha pogut esborrar l'accés<br>'$strAccion' amb codi '$strCodigo'.");
+		if (!DeathsIntervalsModel::delete($id))
+			throw new Exception("No s'ha pogut esborrar l'interval de morts<br>'$strNom' amb codi '$strDeathsIntervalsCode'.");
 
 		# MOSTRA LA VISTA
-		$arrMsg = ["Success","Accés<br>'$strAccion' amb codi '$strCodigo'<br>esborrat correcament.","action"];
+		$arrMsg = ["Success","L'interval de morts<br>'$strNom' amb codi '$strDeathsIntervalsCode'<br>esborrat correcament.","action"];
 
 		FC::getUserView("frontSuccessError", $arrMsg);
 	}

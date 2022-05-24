@@ -295,7 +295,7 @@
 								$strChildTitle="Preguntas ".$strMainTitle;
 								$arrChild=$arrObj->getPreguntas();
 								break;
-				case "query":	$strMainTitle ="de la pregunta";
+				case "query":	$strMainTitle ="de la diseasesTypes";
 								$strChildTitle="Respuestas ".$strMainTitle;
 								$arrChild=$arrObj->getRespuestas();
 								break;
