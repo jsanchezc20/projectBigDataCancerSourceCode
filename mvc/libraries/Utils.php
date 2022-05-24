@@ -12,7 +12,7 @@ class Utils {
 	public static function checkFields(string $strFind, array $arrMatch = []) {
 		foreach($arrMatch as $value) {
 			if (strpos($strFind, $value)) {
-				return TRUE;
+				return true;
 				break;
 			}
 		}

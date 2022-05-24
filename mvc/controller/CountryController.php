@@ -14,7 +14,7 @@ class CountryController {
 		if (empty($objCountries))
 			throw new Exception("No hi ha registres per mostrar.");
 
-		FC::getUserView("countries/list", $objCountries);
+		FC::getUserView("country/list", $objCountries);
 	}
 
 	# MOSTRA UN COUNTRIES
@@ -30,7 +30,7 @@ class CountryController {
 		if (!$objCountries)
 			throw new Exception("No existeixix l'acció amb identificador '$id'.");
 
-		FC::getUserView("countries/details", $objAccion);
+		FC::getUserView("country/details", $objAccion);
 	}
 
 	# OBTÉ LA DESCRIPCIÓ DE LA TAULA PER MUNTAR EL FORMULARI
@@ -42,7 +42,7 @@ class CountryController {
 		
 		$objCountries=DB::selectAll($strSQL);
 
-		FC::getUserView("countries/frmNew", $objCountries);
+		FC::getUserView("country/frmNew", $objCountries);
 	}
 
 	# CREA I GUARDA EL NOU COUNTRIES AMB DADES POST
@@ -89,7 +89,7 @@ class CountryController {
 		# RECUPERA L'USUARI PER PASSAR-HO A LA VISTA
 		# $OBJUSER = USERLOGINMODEL::GETUSER();
 
-		FC::getUserView("countries/frmUpdate", $objCountries);
+		FC::getUserView("country/frmUpdate", $objCountries);
 	}
 
 	public function edit() {
@@ -142,7 +142,7 @@ class CountryController {
 		if (!$objCountries)
 			throw new Exception("No existeix countries amb identificador '$id'.", 1);
 		
-		FC::getUserView("countries/frmDelete", $objCountries);
+		FC::getUserView("country/frmDelete", $objCountries);
 	}
 
 	# ELIMINA COUNTRIES

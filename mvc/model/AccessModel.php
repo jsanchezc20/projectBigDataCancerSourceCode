@@ -2,7 +2,7 @@
 class AccessModel {
 	### PROPIETATS ###
 	public	$access_id = 0,
-			$description='';
+			$description = "";
 
 	### MÈTODES ###
 	# SELECT » RETORNA TOTS ELS ACCESSOS

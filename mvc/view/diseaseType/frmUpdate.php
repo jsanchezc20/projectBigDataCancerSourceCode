@@ -19,24 +19,29 @@
 			Template::LogIn($objUser);
 			# MOSTRA EL MENÚ
 			Template::menu();?>
-		<form action="/query/update" method="post">
+		<form action="/action/update" method="post">
 			<table>
 				<tr>
 					<th class="green med" colspan="2">
-						Actualizar pregunta
+						Actualizar acción
 					</th>
 				</tr><?php
 		foreach ($arrObj as $key => $value) {
 			if ($key=="id" || $key=="publicacion") { ?>
 				<input type="hidden" name="<?=$key?>" value="<?=$value?>"><?php
 			}
-			else { ?>
+			else {
+				$intLen=strlen($value);?>
 				<tr>
 					<th class="r">
 						<?=$key?>
 					</th>
-					<td>
-						<input type="text" name="<?=$key ?>" id="id<?=$key?>" value="<?=$value?>" required>
+					<td><?php
+					if ($intLen>100) { ?>
+						<textarea name="<?=$key?>" rows="<?=intval($intLen*0.020)?>" cols="60"><?=$value?></textarea><?php
+					} else { ?>
+						<input type="text" name="<?=$key?>" id="id<?=$key?>" value="<?=$value?>" required><?php
+					} ?>
 					</td>
 				</tr><?php
 			}

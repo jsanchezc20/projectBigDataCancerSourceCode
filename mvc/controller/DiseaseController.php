@@ -14,7 +14,7 @@ class DiseaseController {
 		if (empty($objAccess))
 			throw new Exception("No hi ha registres per mostrar.");
 
-		FC::getUserView("diseases/list", $objAccess);
+		FC::getUserView("disease/list", $objAccess);
 	}
 
 	# MOSTRA UN DISEASES
@@ -30,7 +30,7 @@ class DiseaseController {
 		if (!$objAccion)
 			throw new Exception("No existeixix l'acció amb identificador '$id'.");
 
-		FC::getUserView("diseases/details", $objAccion);
+		FC::getUserView("disease/details", $objAccion);
 	}
 
 	# OBTÉ LA DESCRIPCIÓ DE LA TAULA PER MUNTAR EL FORMULARI
@@ -42,7 +42,7 @@ class DiseaseController {
 		
 		$objDiseases=DB::selectAll($strSQL);
 
-		FC::getUserView("diseases/frmNew", $objDiseases);
+		FC::getUserView("disease/frmNew", $objDiseases);
 	}
 
 	# CREA I GUARDA EL NOU DISEASES AMB DADES POST
@@ -89,7 +89,7 @@ class DiseaseController {
 		# RECUPERA L'USUARI PER PASSAR-HO A LA VISTA
 		# $OBJUSER = USERLOGINMODEL::GETUSER();
 
-		FC::getUserView("diseases/frmUpdate", $objDiseases);
+		FC::getUserView("disease/frmUpdate", $objDiseases);
 	}
 
 	public function edit() {
@@ -142,7 +142,7 @@ class DiseaseController {
 		if (!$objDiseases)
 			throw new Exception("No existeix diseases amb identificador '$id'.", 1);
 		
-		FC::getUserView("diseases/frmDelete", $objDiseases);
+		FC::getUserView("disease/frmDelete", $objDiseases);
 	}
 
 	# ELIMINA COUNTRIES

@@ -21,14 +21,14 @@
 			# MOSTRA EL MENÚ
 			Template::menu();
 		?>
-		<form action="/module/destroy" method="post">
+		<form action="/action/destroy" method="post">
 			<input type="hidden" name="id" value="<?=$arrObj->id;?>">
 			<input type="hidden" name="nombre" value="<?=$arrObj->nombre;?>">
 			<input type="hidden" name="codigo" value="<?=$arrObj->codigo;?>">
 			<table>
 				<tr>
 					<th class="green med">
-						Confirmación de borrado del módulo
+						Confirmación de borrado de la acción
 					</th>
 				</tr>
 				<tr>

@@ -24,7 +24,7 @@
 			<table>
 				<tr>
 					<th class="green med" colspan="2">
-						Nueva acción
+						Nova entrada enfermetat
 					</th>
 				</tr>
 	<?php
@@ -46,7 +46,20 @@
 									} ?>
 								</select><?php
 								break;
-							
+							case "Country_code":
+								$objCountry = CountryModel::getAll();?>
+								<select name="selAccessId" id="selAccessId"><?php
+								foreach ($objAccess as $idxArr => $objFieldValue) { ?>
+										<option value='<?=$objFieldValue->access_id?>' <?=($idxArr + 1) == $value ? "selected='selected'" : ""?>
+											title='<?=htmlentities($objFieldValue->access_id." » ".$objFieldValue->description,ENT_QUOTES)?>'>
+										<?php echo "$objFieldValue->access_id » $objFieldValue->description"?>
+									</option><?php
+								} ?>
+								</select><?php
+								break;
+							case "Disease_type_code":
+							case "Death_interval_code":
+								
 							case 'descripcion':
 							case 'objectivos':
 							case 'requisitos':?>
