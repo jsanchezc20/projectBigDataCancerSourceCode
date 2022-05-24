@@ -17,8 +17,8 @@
 			Template::LogIn($objUser);
 			# MOSTRA EL MENÚ
 			Template::menu();
-			#MUESTRA EL CONTENIDO
-			Template::getContent($arrObj, array("publicacion"));
+			#MUESTRA EL CONTENIDO SI HAY REGISTROS
+			Template::getContent($arrObj);
 			#MUESTRA EL PIE DE PÁGINA
 			Template::footer();
 		?>

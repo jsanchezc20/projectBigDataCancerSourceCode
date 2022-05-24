@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="<?=DEFAULT_PATH?>css/main.css">
 		<script src="<?=DEFAULT_PATH?>js/main.js"></script>
 	</head>
-	<body onload="volver.focus();">
+	<body>
 		<?php
 			# MOSTRA L'ENCAPÇALAMENT (HEADER)
 			Template::header();
@@ -19,9 +19,10 @@
 			Template::LogIn($objUser);
 			# MOSTRA EL MENÚ
 			Template::menu();
-			#MUESTRA LOS DETALLES DEL MÓDULO Y SUS PREGUNTAS
-			Template::getDetails($arrObj,"module");
+			#MUESTRA LOS DETALLES DE LA ACCIÓN Y SUS PREGUNTAS
+			Template::getDetails($arrObj,"action");
 			#MUESTRA EL PIE DE PÁGINA
-			Template::footer();?>
+			Template::footer();
+		?>
 	</body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-class DiseasesTypesController {
+class DiseaseTypeController {
 	# MÈTODE PER DEFECTE
 	public function index() {
 		# LLISTAT D'ACCESSOS
@@ -14,7 +14,7 @@ class DiseasesTypesController {
 		if (empty($objDiseasesTypes))
 			throw new Exception("No hi ha registres per mostrar.");
 
-		FC::getUserView("diseasesTypes/list", $objDiseasesTypes);
+		FC::getUserView("diseaseType/list", $objDiseasesTypes);
 	}
 
 	# MOSTRA UN DISEASE TYPE
@@ -30,7 +30,7 @@ class DiseasesTypesController {
 		if (!$objDiseasesTypes)
 			throw new Exception("No existeix el tipus de càncer amb identificador '$id'.");
 
-		FC::getUserView("diseasesTypes/details", $objDiseasesTypes);
+		FC::getUserView("diseaseType/details", $objDiseasesTypes);
 	}
 
 	# OBTÉ LA DESCRIPCIÓ DE LA TAULA PER MUNTAR EL FORMULARI
@@ -42,7 +42,7 @@ class DiseasesTypesController {
 
 		$objDiseasesTypes=DB::selectAll($strSQL);
 
-		FC::getUserView("diseasesTypes/frmNew", $objDiseasesTypes);
+		FC::getUserView("diseaseType/frmNew", $objDiseasesTypes);
 	}
 
 	# CREA I GUARDA EL NOU ACCÉS MAB DADES POST
@@ -89,7 +89,7 @@ class DiseasesTypesController {
 		# RECUPERA L'USUARI PER PASSAR-HO A LA VISTA
 		# $OBJUSER = USERLOGINMODEL::GETUSER();
 
-		FC::getUserView("diseasesTypes/frmUpdate", $objDiseaseType);
+		FC::getUserView("diseaseType/frmUpdate", $objDiseaseType);
 	}
 
 	public function edit() {
@@ -160,3 +160,4 @@ class DiseasesTypesController {
 
 		FC::getUserView("frontSuccessError", $arrMsg);
 	}
+}
